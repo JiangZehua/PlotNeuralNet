@@ -21,6 +21,8 @@ def to_cor():
 \def\FcReluColor{rgb:blue,5;red,5;white,4}
 \def\SoftmaxColor{rgb:magenta,5;black,7}   
 \def\SumColor{rgb:blue,5;green,15}
+\def\ConvSigmoidColor{rgb:red,0.4;black,0.3;yellow,0.3}   
+\def\OnehotColor{rgb:white,1}   
 """
 
 def to_begin():
@@ -41,6 +43,23 @@ def to_input( pathfile, to='(-3,0,0)', width=8, height=8, name="temp" ):
 """
 
 # Conv
+def to_Onehot( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Box={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        xlabel={{"""+ str(n_filer) +""", }},
+        zlabel="""+ str(s_filer) +""",
+        fill=\OnehotColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
+
+# Conv
 def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
     return r"""
 \pic[shift={"""+ offset +"""}] at """+ to +""" 
@@ -56,6 +75,45 @@ def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", widt
         }
     };
 """
+
+# Conv,relu
+def to_ConvRelu( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0)", width=(2), height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={ """+ offset +""" }] at """+ to +""" 
+    {RightBandedBox={
+        name="""+ name +""",
+        caption="""+ caption +""",
+        xlabel={{"""+ str(n_filer) +""", }},
+        zlabel="""+ str(s_filer) +""",
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
+
+# Conv,sigmoid
+def to_ConvSigmoid( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0)", width=(2), height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={ """+ offset +""" }] at """+ to +""" 
+    {RightBandedBox={
+        name="""+ name +""",
+        caption="""+ caption +""",
+        xlabel={{"""+ str(n_filer) +""", }},
+        zlabel="""+ str(s_filer) +""",
+        fill=\ConvColor,
+        bandfill=\ConvSigmoidColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
+
+
+
 
 # Conv,Conv,relu
 # Bottleneck
