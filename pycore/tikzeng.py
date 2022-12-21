@@ -94,6 +94,35 @@ def to_LatentVector( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0
     };
 """
 
+def to_Vector( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {LatentBox={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        xlabel={{"""+ str(n_filer) +""", }},
+        fill=\ConvColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
+
+def to_Vector_nolabel( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {LatentBox={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        xlabel={{""" +""", }},
+        fill=\ConvColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
 
 # Conv
 def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
@@ -141,6 +170,24 @@ def to_ConvLeakyRelu( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,
         zlabel="""+ str(s_filer) +""",
         fill=\ConvColor,
         bandfill=\ConvLeakyReluColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
+
+# 1D conv, relu
+def to_Conv1DRelu( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0)", width=(2), height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={ """+ offset +""" }] at """+ to +""" 
+    {RightBandedBox={
+        name="""+ name +""",
+        caption="""+ caption +""",
+        xlabel={{"""+ str(n_filer) +""", }},
+        zlabel="""+""",
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
         height="""+ str(height) +""",
         width="""+ str(width) +""",
         depth="""+ str(depth) +"""

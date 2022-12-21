@@ -98,4 +98,22 @@ Now, run the program as follows:
     bash ../tikzmake.sh my_arch
 
 
+## How to use:
+1. Create a new directory and a new file, e.g. `my_model.py`.
+2. Create a `.py` file with your plot architecture.
+3. Inside your directory (*not* your root folder of this repo), Run 
+```
+bash ../tikzmake.sh my_model
+```
+to generate the `.tex` and `.pdf` file.
 
+## How to add new layers:
+Go to `pycore/tikzeng.py` and create your favorite layer. For example, if you want to add a new layer called `to_MyLayer`, you can add codes to `tikzeng.py`
+
+* change color: define your favourite color in `to_cor()`
+* name: will *not* change the caption, it's for showing the position of the layer (for example connecting them using `to_connection`)    
+* offset: change the position of the layer in order of (x - left and right, y - up and down)
+* to_connection( "from", "to" ): connect the layer to the previous layer using arrow
+* n_filer: for xlabel={{"""+ str(n_filer) +""", }},
+* s_filer: for zlabel="""+ str(s_filer) +"""
+* caption: _no_ "_" allowed!
