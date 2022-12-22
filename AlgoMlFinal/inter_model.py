@@ -20,7 +20,7 @@ arch = [
     to_connection( "maxpooling", "l2"),
     to_Conv1DRelu( name='l3', s_filer=1, n_filer=256, offset="(7.4,0,0)", caption="Conv1D:256$\\times $1; ReLu", width=2.5, height=20, depth=2.5),
     to_connection( "l2", "l3" ),
-    to_Vector_nolabel( name='output', n_filer=10, offset="(9.3,0,0)", caption='softmax; Cluster Num', width=1, height=6, depth=1),
+    to_Vector_nolabel( name='output', n_filer=10, offset="(9.3,0,0)", caption='Cluster', width=1, height=6, depth=1),
     to_connection( "l3", "output" ),
     to_end() 
     ]
