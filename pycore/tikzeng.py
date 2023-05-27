@@ -361,6 +361,13 @@ def to_connection( of, to):
 \draw [connection]  ("""+of+"""-east)    -- node {\midarrow} ("""+to+"""-west);
 """
 
+
+def to_manhattan_connection( of, to):
+    return r"""
+\draw [connection]  ("""+of+"""-east)   -- ++(0.5,0) coordinate[midway] (midpoint) |- node[pos=0.75]  {\midarrow} ("""+to+"""-west);
+"""
+
+
 def to_skip( of, to, pos=1.25):
     return r"""
 \path ("""+ of +"""-southeast) -- ("""+ of +"""-northeast) coordinate[pos="""+ str(pos) +"""] ("""+ of +"""-top) ;
@@ -370,6 +377,7 @@ def to_skip( of, to, pos=1.25):
 -- node {\copymidarrow}("""+to+"""-top)
 -- node {\copymidarrow} ("""+to+"""-north);
 """
+
 
 def to_end():
     return r"""

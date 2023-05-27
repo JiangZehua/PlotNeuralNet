@@ -101,11 +101,16 @@ Now, run the program as follows:
 ## How to use:
 1. Create a new directory and a new file, e.g. `my_model.py`.
 2. Create a `.py` file with your plot architecture.
-3. Inside your directory (*not* your root folder of this repo), Run 
+3. Inside your directory (_**not**_ your root folder of this repo), Run 
 ```
 bash ../tikzmake.sh my_model
 ```
 to generate the `.tex` and `.pdf` file.
+
+**Additional Notes** 
+1. The command line arg you're passing is `my_model`, it is the name of your `.py` file., **Not** `my_model.py`.
+2. Don't put any `_` in your `.py` file, especially in the captions of the layers. It will cause errors, cannot save the pdf file.
+3. recommend 2d layers have distance of 4 and 1d vector have the distance of 2
 
 ## How to add new layers:
 Go to `pycore/tikzeng.py` and create your favorite layer. For example, if you want to add a new layer called `to_MyLayer`, you can add codes to `tikzeng.py`
