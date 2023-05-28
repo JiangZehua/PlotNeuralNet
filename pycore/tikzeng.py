@@ -195,6 +195,25 @@ def to_Conv1DRelu( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0
     };
 """
 
+# 1D conv, relu
+def to_Conv1DRelu_nolabel( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0)", width=(2), height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={ """+ offset +""" }] at """+ to +""" 
+    {RightBandedBox={
+        name="""+ name +""",
+        caption="""+ caption +""",
+        xlabel={{""" +""", }},
+        zlabel="""+""",
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
+
+
 # DeConv,relu
 def to_DeConvRelu( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0)", width=(2), height=40, depth=40, caption=" " ):
     return r"""
@@ -362,9 +381,9 @@ def to_connection( of, to):
 """
 
 
-def to_manhattan_connection( of, to):
+def to_manhattan_connection( of, to, pos=0.8):
     return r"""
-\draw [connection]  ("""+of+"""-east)   -- ++(0.5,0) coordinate[midway] (midpoint) |- node[pos=0.75]  {\midarrow} ("""+to+"""-west);
+\draw [connection]  ("""+of+"""-east)   -- ++("""+ str(pos) +""",0) coordinate[midway] (midpoint) |- node[pos=0.75]  {\midarrow} ("""+to+"""-west);
 """
 
 
