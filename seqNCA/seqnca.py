@@ -36,11 +36,10 @@ arch = [
     ###### action branch ######
     to_FcRelu( name='l21', n_filer=64, width=fc_width, offset="(6.1,3,0)", caption="ActionFC1--ReLu", depth=fc_height/1.5, height=fc_width),
     to_manhattan_connection( "cropped_feat", "l21", pos=2 ),
-    to_FcRelu( name='l31', n_filer=8, width=fc_width, offset="(8.1,3,0)", caption="ActionFC2--ReLu", depth=fc_height/4, height=fc_width),
+    to_FcRelu( name='l31', n_filer=32, width=fc_width, offset="(8.1,3,0)", caption="ActionFC2--ReLu", depth=fc_height/3, height=fc_width),
     to_connection( "l21", "l31" ),
-    # to_manhattan_connection( "l3", "l41", pos=1 ),
 
-    to_Onehot( name='output_action', n_filer=3, s_filer=2, offset="(10,3,0)", width=2.5, height=out_width, depth=out_width),
+    to_Onehot( name='output_action', n_filer=3, s_filer=4, offset="(10,3,0)", width=2.5, height=out_width, depth=out_width),
     to_input( 'im-227.png', to="(10.5,3,0)", name='output_action', width=im_out_w, height=im_out_w),
     to_connection( "l31", "output_action" ),
 
