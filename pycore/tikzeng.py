@@ -19,7 +19,7 @@ def to_cor():
 \def\PoolColor{rgb:red,1;black,0.3}
 \def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
 \def\FcColor{rgb:blue,5;red,2.5;white,5}
-\def\FcReluColor{rgb:blue,5;red,5;white,4}
+\def\FcReluColor{rgb:blue,5;yellow,5;white,4}
 \def\SoftmaxColor{rgb:magenta,5;black,7}   
 \def\SumColor{rgb:blue,5;green,15}
 \def\ConvSigmoidColor{rgb:red,0.4;black,0.3;yellow,0.3}   
@@ -194,6 +194,26 @@ def to_Conv1DRelu( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0
         }
     };
 """
+
+
+# 1D conv, relu
+def to_FcRelu( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0)", width=(2), height=40, depth=40, caption=" " ):
+    return r"""
+\pic[shift={ """+ offset +""" }] at """+ to +""" 
+    {RightBandedBox={
+        name="""+ name +""",
+        caption="""+ caption +""",
+        xlabel={{"""+""", }},
+        zlabel="""+ str(n_filer)+""",
+        fill=\FcReluColor,
+        bandfill=\ConvReluColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
+
 
 # 1D conv, relu
 def to_Conv1DRelu_nolabel( name, s_filer=256, n_filer=(64), offset="(0,0,0)", to="(0,0,0)", width=(2), height=40, depth=40, caption=" " ):
