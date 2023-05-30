@@ -15,11 +15,11 @@ fc_height = 40
 fc_width = 1.5
 
 # used for adjusting the thickness of the convolutional layer
-feat_width = 10
+feat_width = 9
 
 # used for moving the input image around
-im_x = -0.7
-im_y = 0.85
+im_x = 0.3
+im_y = -0.3
 
 arch = [ 
     to_head('..'), 
@@ -31,23 +31,25 @@ arch = [
     to_input( 'im-226_.png', to="(-3,"+str(im_y)+","+str(im_x)+")", name='input', width=im_w/2, height=im_w/2),
     to_ConvRelu( name='l1', s_filer=32, n_filer=64, width=feat_width, caption="Conv2D-3$\\times$3--ReLu", height=in_width, depth=in_width, offset="(-0.5,0,0)"),
     to_connection( "input", "l1" ),
-    to_Onehot( name='cropped_feat', n_filer=64, s_filer=3, offset="(-0.5,"+str(im_y)+","+str(im_x)+")", width=feat_width, height=in_width/5, depth=in_width/5),
+    to_Onehot( name='cropped_feat', n_filer=64, s_filer=3, offset="(-0.5,0.1,0.1)", width=feat_width, height=in_width/5, depth=in_width/5),
+    # to_Onehot( name='cropped_feat', n_filer=64, s_filer=3, offset="(-0.5,"+str(im_y)+","+str(im_x)+")", width=feat_width, height=in_width/5, depth=in_width/5),
 
     ###### action branch ######
-    to_FcRelu( name='l21', n_filer=64, width=fc_width, offset="(6.1,3,0)", caption="ActionFC1--ReLu", depth=fc_height/1.5, height=fc_width),
-    to_manhattan_connection( "cropped_feat", "l21", pos=2 ),
-    to_FcRelu( name='l31', n_filer=32, width=fc_width, offset="(8.1,3,0)", caption="ActionFC2--ReLu", depth=fc_height/3, height=fc_width),
+    to_FcRelu( name='l21', n_filer=64, width=fc_width, offset="(4.1,3,0)", caption="ActionFC1--ReLu", depth=fc_height/1.5, height=fc_width),
+    to_manhattan_connection( "cropped_feat", "l21", pos=1.5 ),
+    # to_manhattan_connection( "cropped_feat", "l21", pos=1.5 ),
+    to_FcRelu( name='l31', n_filer=32, width=fc_width, offset="(6.1,3,0)", caption="ActionFC2--ReLu", depth=fc_height/3, height=fc_width),
     to_connection( "l21", "l31" ),
 
-    to_Onehot( name='output_action', n_filer=3, s_filer=4, offset="(10,3,0)", width=2.5, height=out_width, depth=out_width),
-    to_input( 'im-227.png', to="(10.5,3,0)", name='output_action', width=im_out_w, height=im_out_w),
+    to_Onehot( name='output_action', n_filer=3, s_filer=4, offset="(8,3,0)", width=2.5, height=out_width, depth=out_width),
+    to_input( 'im-227.png', to="(8.5,3,0)", name='output_action', width=im_out_w, height=im_out_w),
     to_connection( "l31", "output_action" ),
 
 
     ###### value branch ######
-    to_FcRelu( name='l22', n_filer=64, width=fc_width, offset="(6.1,-3,0)", caption="ValueFC1--ReLu", depth=fc_height/1.5,height=fc_width),
-    to_manhattan_connection( "l1", "l22", pos=2 ),
-    to_FcRelu( name='l32', n_filer=1, width=fc_width, offset="(8.1,-3,0)", caption="ValueFC2--ReLu", depth=fc_width, height=fc_width),
+    to_FcRelu( name='l22', n_filer=64, width=fc_width, offset="(4.1,-3,0)", caption="ValueFC1--ReLu", depth=fc_height/1.5,height=fc_width),
+    to_manhattan_connection( "l1", "l22", pos=1 ),
+    to_FcRelu( name='l32', n_filer=1, width=fc_width, offset="(6.1,-3,0)", caption="ValueFC2--ReLu", depth=fc_width, height=fc_width),
     to_connection( "l22", "l32" ),
     # to_manhattan_connection( "l3", "l42", pos=1 ),
 
